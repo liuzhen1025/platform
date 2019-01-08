@@ -1,0 +1,32 @@
+
+#服务端口
+spring:
+  application:
+    name: configcenter
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/liuzhen1025/repository1
+  profiles:
+    active: pro
+server:
+  port: 9005
+eureka:
+  instance:
+    ##续约更新时间间隔设置5秒，m默认30s
+    lease-renewal-interval-in-seconds: 5
+    ##续约到期时间10秒，默认是90秒
+    lease-expiration-duration-in-seconds: 10
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}/${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8762/regcent/eureka
+management:
+  security:
+    enabled: false
+endpoints:
+  health:
+    sensitive: false
+    enabled: true

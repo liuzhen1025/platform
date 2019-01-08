@@ -1,0 +1,37 @@
+server:
+  port: 9026
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  context-path: /@project.build.finalName@
+spring:
+  zipkin:
+    base-url: http://localhost:8090
+    locator:
+      discovery:
+        enabled: true
+myconfig: 5555
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:9031/vitark-gateway/oauth/user
+      prefer-token-info: false
+      service-id: resource
+#hystrix:
+ # metrics:
+ #   enabled: true
+endpoints:
+  health:
+    sensitive: false
+    enabled: true
+management:
+  security:
+    enabled: false
+  context-path: /mange
+logging:
+  level.com.netflix.discovery.DiscoveryClient: warn
+info:
+  application:
+    name: 用户管理中心
+    desc: 提供集群用户管理服务
+    version: @project.version@

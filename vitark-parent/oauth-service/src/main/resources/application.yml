@@ -1,0 +1,33 @@
+server:
+  port: 9011
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/zuul-auth?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+  devtools:
+    livereload:
+      port: 35730
+  zipkin:
+    base-url: http://localhost:8090
+endpoints:
+  health:
+    sensitive: false
+    enabled: true
+management:
+  security:
+    enabled: false
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+logging:
+  config: classpath:logback.xml
+  level:
+    org:
+      springframework:
+        web: info

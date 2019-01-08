@@ -1,0 +1,29 @@
+#service name
+spring:
+  application:
+    name: register-center
+  cloud:
+    config:
+      allow-override: false
+#服务端口,访问路径
+server:
+  port: 8762
+  context-path: /regcent
+#eureka 服务中心配置
+eureka:
+  ## 环境名称
+  environment: 开发功能验证
+  ## 数据中心名称
+  datacenter: 开发
+  instance:
+    hostname: host2
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8762/regcent/eureka
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    eviction-interval-timer-in-ms: 2000
+    enable-self-preservation: false

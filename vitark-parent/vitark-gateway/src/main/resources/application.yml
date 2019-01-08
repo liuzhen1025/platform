@@ -1,0 +1,83 @@
+server:
+  port: 9031
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  context-path: /@project.build.finalName@
+management:
+  security:
+    enabled: false
+  context-path: /@project.build.finalName@-m
+endpoints:
+  health:
+    sensitive: false
+    enabled: true
+zuul:
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
+  routes:
+    rws-service:
+      path: /**
+      strip-prefix: true
+      sensitiveHeaders:
+      serviceId: rws-service
+    user-service:
+      path: /**
+      strip-prefix: true
+      sensitiveHeaders:
+      serviceId: user-service
+    oauth:
+      path: /oauth/**
+      strip-prefix: true
+      sensitiveHeaders:
+      serviceId: auth2.0-center
+  ignored-patterns: /@project.build.finalName@-m/**
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      ##网关的地址
+      access-token-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/uaa/oauth/token
+      user-authorization-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/uaa/oauth/authorize
+    resource:
+      user-info-uri:  http://${vitark.gateway.ip}:${vitark.gateway.port}/vitark-gateway/oauth/user
+      prefer-token-info: false
+
+##############end#####################
+####超时配置####
+ribbon:
+  ReadTimeout: 2000
+  ConnectTimeout: 2000
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  eureka:
+    enabled: true
+hystrix:
+  metrics:
+    enabled: true
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 600000
+
+###超时配置###
+logging:
+  level:
+    root: debug
+spring:
+  zipkin:
+    base-url: http://localhost:8090
+    locator:
+      discovery:
+        enabled: true
+info:
+  application:
+    name: 网关服务
+    desc: 提供后端所有服务的转发、请求拦截等功能
+    version: @project.version@

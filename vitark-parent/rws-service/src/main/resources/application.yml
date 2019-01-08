@@ -1,0 +1,48 @@
+server:
+  port: 9022
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  context-path: /@project.build.finalName@
+management:
+  security:
+    enabled: false
+  context-path: /qq
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/vitark-gateway/oauth/user
+      prefer-token-info: false
+      service-id: rws-service
+myconfig: ${profile.active}
+logging:
+  level.com.netflix.discovery.DiscoveryClient: warn
+  config: classpath:logback.xml
+feign:
+  compression:
+    request:
+      min-request-size: 2048
+      mime-types: text/xml,application/xml,application/json
+info:
+  application:
+    name: 权限管理中心
+    desc: 提供集群统一权限管理认证服务
+    version: @project.version@
+spring:
+  zipkin:
+    base-url: http://localhost:8090
+    locator:
+      discovery:
+        enabled: true
+  application:
+    ## 应用名称
+    name: @project.build.finalName@
+hystrix:
+  config:
+    stream:
+      maxConcurrentConnections: 50
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE

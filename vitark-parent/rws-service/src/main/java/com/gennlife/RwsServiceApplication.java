@@ -23,9 +23,6 @@ import org.springframework.stereotype.Component;
 public class RwsServiceApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext run = SpringApplication.run(RwsServiceApplication.class, args);
-		/*Ser bean = run.getBean(Ser.class);
-		System.out.println(bean.getMyName());*/
-
 	}
 	@Bean
 	public RequestInterceptor requestTokenBearerInterceptor(){

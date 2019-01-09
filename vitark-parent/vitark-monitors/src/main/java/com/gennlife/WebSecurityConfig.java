@@ -15,7 +15,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //忽略css.jq.img等文件
-        web.ignoring().antMatchers(/*"*//**.html",*/ "/monitor/**.css", "/monitor/img/**", "/monitor/**.js", "/monitor/third-party/**","/monitor/api/**");
+        web.ignoring().antMatchers("/monitor/**.html", "/monitor/**.css", "/monitor/img/**", "/monitor/**.js", "/monitor/third-party/**","/monitor/api/**");
     }
 
     @Override
@@ -41,8 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/monitor/login").permitAll()
                 .defaultSuccessUrl("/monitor/")
                 .and() //Logout Form configuration
-                .logout()
-                .deleteCookies("remove")
+                .logout()//.logoutUrl()logoutUrl("/manager/logout")
+                //.deleteCookies("remove")
                 .logoutSuccessUrl("/monitor/login.html").permitAll()
                 .and()
                 .httpBasic();

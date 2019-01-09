@@ -1,17 +1,10 @@
-
 #服务端口
 spring:
   application:
-    name: configcenter
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/liuzhen1025/repository1
-  profiles:
-    active: pro
+    name: @project.build.finalName@
 server:
   port: 9005
+  context-path: /${spring.application.name}
 eureka:
   instance:
     ##续约更新时间间隔设置5秒，m默认30s
@@ -20,13 +13,22 @@ eureka:
     lease-expiration-duration-in-seconds: 10
     preferIpAddress: true
     instance-id: ${spring.cloud.client.ipAddress}:${server.port}/${spring.application.name}
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8762/regcent/eureka
+    status-page-url-path: /${spring.application.name}${management.context-path}${endpoints.info.path:/info}
+    healthCheckUrlPath: /${spring.application.name}${management.context-path}${endpoints.health.path:/health}
+    home-page-url-path: /${spring.application.name}${management.context-path}
+    metadata-map:
+      configPath: ${server.context-path}
+      context-path: /${spring.application.name}${management.context-path}
 management:
   security:
     enabled: false
+  context-path: /${spring.application.name}-m
 endpoints:
   health:
     sensitive: false
     enabled: true
+info:
+  application:
+    name: 配置中心
+    desc: 提供集群统一配置管理
+    version: @project.version@

@@ -3,11 +3,27 @@ server:
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
-  context-path: /@project.build.finalName@
+  context-path: /${spring.application.name}
+eureka:
+  instance:
+    ##续约更新时间间隔设置5秒，m默认30s
+    lease-renewal-interval-in-seconds: 5
+    ##续约到期时间10秒，默认是90秒
+    lease-expiration-duration-in-seconds: 10
+    ## 使用ip地址
+    preferIpAddress: true
+    ## 注册中心的实力名称
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}/${spring.application.name}
+    status-page-url-path: /${spring.application.name}${management.context-path}${endpoints.info.path:/info}
+    health-check-url-path: /${spring.application.name}${management.context-path}${endpoints.health.path:/health}
+    home-page-url-path: /${spring.application.name}${management.context-path}
+    metadata-map:
+      management:
+        context-path: /${spring.application.name}${management.context-path}
 management:
   security:
     enabled: false
-  context-path: /@project.build.finalName@-m
+  context-path: /${spring.application.name}-m
 endpoints:
   health:
     sensitive: false
@@ -31,18 +47,18 @@ zuul:
       path: /oauth/**
       strip-prefix: true
       sensitiveHeaders:
-      serviceId: auth2.0-center
-  ignored-patterns: /@project.build.finalName@-m/**
+      serviceId: oauth-service
+  ignored-patterns: ${management.context-path}/**
 security:
   basic:
     enabled: false
   oauth2:
     client:
       ##网关的地址
-      access-token-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/uaa/oauth/token
-      user-authorization-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/uaa/oauth/authorize
+      access-token-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/oauth/token
+      user-authorization-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/oauth/authorize
     resource:
-      user-info-uri:  http://${vitark.gateway.ip}:${vitark.gateway.port}/vitark-gateway/oauth/user
+      user-info-uri:  http://${vitark.gateway.ip}:${vitark.gateway.port}/${spring.application.name}/oauth/user
       prefer-token-info: false
 
 ##############end#####################
@@ -69,13 +85,15 @@ hystrix:
 ###超时配置###
 logging:
   level:
-    root: debug
+    root: info
 spring:
   zipkin:
     base-url: http://localhost:8090
     locator:
       discovery:
         enabled: true
+  application:
+    name: @project.build.finalName@
 info:
   application:
     name: 网关服务

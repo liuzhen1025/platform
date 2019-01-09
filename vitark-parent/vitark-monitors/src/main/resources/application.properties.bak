@@ -1,7 +1,5 @@
 server.port=8090
 spring.boot.admin.context-path=/monitor
-spring.boot.admin.username=user
-spring.boot.admin.password=user
 spring.application.name=monitor
 spring.boot.admin.routes.endpoints=env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream
 security.user.name=admin

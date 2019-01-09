@@ -1,6 +1,4 @@
 spring:
-  zipkin:
-    base-url: http://localhost:9009
   cloud:
     config:
       ## git 分支
@@ -17,20 +15,8 @@ spring:
       retry:
         initial-interval: 2000
       profile: pro
-management:
-  security:
-    enabled: false
 eureka:
-  instance:
-    ##续约更新时间间隔设置5秒，m默认30s
-    lease-renewal-interval-in-seconds: 5
-    ##续约到期时间10秒，默认是90秒
-    lease-expiration-duration-in-seconds: 10
-    ## 使用ip地址
-    preferIpAddress: true
-    ## 注册中心的实力名称
-    instance-id: ${spring.cloud.client.ipAddress}:${server.port}/${spring.application.name}/${random.value}
   client:
     ## 注册中心地址
     serviceUrl:
-      defaultZone: http://localhost:8762/regcent/eureka #http://192.168.6.8:8070/register-center/eureka,http://192.168.6.9:8070/register-center/eureka
+      defaultZone: http://localhost:8762/register-center/eureka #http://192.168.6.8:8070/register-center/eureka,http://192.168.6.9:8070/register-center/eureka

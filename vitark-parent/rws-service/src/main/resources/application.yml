@@ -41,8 +41,8 @@ feign:
       mime-types: text/xml,application/xml,application/json
 info:
   application:
-    name: 权限管理中心
-    desc: 提供集群统一权限管理认证服务
+    name: rws服务
+    desc: 提供真实世界研究功能
     version: @project.version@
 spring:
   zipkin:

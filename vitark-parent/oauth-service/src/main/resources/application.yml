@@ -51,3 +51,8 @@ logging:
     org:
       springframework:
         web: info
+info:
+  application:
+    name: 权限管理中心
+    desc: 提供集群统一权限管理认证服务
+    version: @project.version@

@@ -55,10 +55,10 @@ security:
   oauth2:
     client:
       ##网关的地址
-      access-token-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/oauth/token
-      user-authorization-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/oauth/authorize
+      access-token-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/${spring.application.name}/oauth/oauth-service/oauth/token
+      user-authorization-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/oauth/oauth-service/authorize
     resource:
-      user-info-uri:  http://${vitark.gateway.ip}:${vitark.gateway.port}/${spring.application.name}/oauth/user
+      user-info-uri:  http://${vitark.gateway.ip}:${vitark.gateway.port}/${spring.application.name}/oauth/oauth-service/user
       prefer-token-info: false
 
 ##############end#####################

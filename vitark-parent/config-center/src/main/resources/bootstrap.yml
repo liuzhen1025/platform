@@ -4,10 +4,10 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/liuzhen1025/repository1
+          uri: @config-git-url@
   profiles:
     active: pro
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8762/register-center/eureka
+      defaultZone: @eureka-urls@

@@ -1,12 +1,12 @@
 #eureka 服务中心配置
 eureka:
   ## 环境名称
-  environment: 开发功能验证
+  environment: @eureka.environment@
   ## 数据中心名称
-  datacenter: 开发
+  datacenter: @eureka.datacenter@
   client:
     serviceUrl:
-      defaultZone: http://localhost:8762/${spring.application.name}/eureka
+      defaultZone: @eureka-urls@
     register-with-eureka: false
     fetch-registry: false
   server:

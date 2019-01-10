@@ -56,3 +56,4 @@ info:
     name: 用户管理中心
     desc: 提供集群用户管理服务
     version: @project.version@
+    buildTime: @build.time@

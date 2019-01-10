@@ -25,5 +25,11 @@ security:
   user:
     name: admin
     password: 123456
+info:
+  application:
+    name: 监控配置管理服务
+    desc: 监控配置管理服务
+    version: @project.version@
+    buildTime: @build.time@
 
 

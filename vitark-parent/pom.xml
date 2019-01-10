@@ -9,12 +9,12 @@
 	<packaging>pom</packaging>
 
 	<name>vitark-parent</name>
-	<description>Demo project for Spring Boot</description>
+	<description>vitark-platform 父级工程</description>
 	<modules>
-		<module>config-center</module>
-		<module>cache-service</module>
-		<module>register-center</module>
-		<module>vitark-common</module>
+        <module>vitark-common</module>
+        <module>config-center</module>
+        <module>register-center</module>
+        <!--<module>cache-service</module>-->
 		<module>rws-service</module>
 		<module>user-service</module>
 		<module>vitark-gateway</module>
@@ -39,15 +39,22 @@
 		</repository>
 	</distributionManagement>
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <eureka-urls>http://localhost:8762/register-center/eureka</eureka-urls>
+		<config-server-serviceid>CONFIG-CENTER</config-server-serviceid>
+        <config-git-url>https://github.com/liuzhen1025/repository1</config-git-url>
+        <spring.profile.active>pro,demo</spring.profile.active>
+        <eureka.environment>开发验证</eureka.environment>
+        <eureka.datacenter>开发</eureka.datacenter>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Dalston.RELEASE</spring-cloud.version>
 		<druid-starter.version>1.1.6</druid-starter.version>
 		<swagger2.version>2.8.0</swagger2.version>
 		<lombok.version>1.16.20</lombok.version>
-		<vitark-common.version>releases1.0.0</vitark-common.version>
-        <external-common-config>aaaa</external-common-config>
+        <build.time>${maven.build.timestamp}</build.time>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+		<vitark-common.version>releases1.0.1</vitark-common.version>
 	</properties>
 
 
@@ -95,6 +102,24 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>timestamp-property</id>
+                        <goals>
+                            <goal>timestamp-property</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <name>build.time</name>
+                    <pattern>yyyy-MM-dd HH:mm</pattern>
+                    <timeZone>GMT</timeZone>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 

@@ -44,6 +44,7 @@ info:
     name: rws服务
     desc: 提供真实世界研究功能
     version: @project.version@
+    buildTime: @build.time@
 spring:
   zipkin:
     base-url: http://localhost:8090

@@ -18,7 +18,8 @@ eureka:
     home-page-url-path: /${spring.application.name}${management.context-path}
     metadata-map:
       configPath: ${server.context-path}
-      context-path: /${spring.application.name}${management.context-path}
+      management:
+        context-path: /${spring.application.name}${management.context-path}
 management:
   security:
     enabled: false
@@ -32,3 +33,4 @@ info:
     name: 配置中心
     desc: 提供集群统一配置管理
     version: @project.version@
+    buildTime: @build.time@

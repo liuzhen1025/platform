@@ -97,5 +97,6 @@ spring:
 info:
   application:
     name: 网关服务
-    desc: 提供后端所有服务的转发、请求拦截等功能
+    desc: 提供后端所有服务的转发、请求拦截、安全控制等功能
     version: @project.version@
+    buildTime: @build.time@

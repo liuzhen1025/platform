@@ -8,7 +8,7 @@ spring:
       ## 配置发现配置
       discovery:
         ## 配置中心应用名称
-        service-id: CONFIG-CENTER
+        service-id: @config-server-serviceid@
         ## 是否启用发现
         enabled: true
       fail-fast: true
@@ -16,9 +16,9 @@ spring:
         initial-interval: 2000
   ## 属性文件，读取的配置文件的格式为${application.name}-{lable}
   profiles:
-    active: pro,demo
+    active: @spring.profile.active@
 eureka:
   client:
     ## 注册中心地址
     serviceUrl:
-      defaultZone: http://localhost:8762/register-center/eureka
+      defaultZone: @eureka-urls@

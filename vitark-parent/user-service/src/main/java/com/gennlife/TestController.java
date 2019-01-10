@@ -6,6 +6,7 @@ package com.gennlife;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,9 +26,9 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 public class TestController {
     @Value("${profile.active}")
     private String env;
-    @RequestMapping(value="/getEnv")
+    @RequestMapping(value="/getEnv",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getEnv(@RequestBody String json){
         System.out.println("server 2");
-        return env+"========"+2;
+        return json;
     }
 }

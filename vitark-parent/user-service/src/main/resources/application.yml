@@ -2,8 +2,12 @@ server:
   port: 9026
   compression:
     enabled: true
-    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    #mime-types: application/json,application/xml,text/html,text/xml,text/plain
   context-path: /@project.build.finalName@
+feign:
+  compression:
+    request:
+      min-request-size: 2048
 eureka:
   instance:
     ##续约更新时间间隔设置5秒，m默认30s

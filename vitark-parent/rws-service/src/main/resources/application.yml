@@ -2,7 +2,7 @@ server:
   port: 9022
   compression:
     enabled: true
-    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+   # mime-types: application/json,application/xml,text/html,text/xml,text/plain
   context-path: /@project.build.finalName@
 eureka:
   instance:
@@ -38,7 +38,7 @@ feign:
   compression:
     request:
       min-request-size: 2048
-      mime-types: text/xml,application/xml,application/json
+      #mime-types: text/xml,application/xml,application/json
 info:
   application:
     name: rws服务

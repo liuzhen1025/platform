@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @FeignClient(value = "user-service"/*,fallback = CustermerCommand.class*/,fallbackFactory = DeptClientServiceFallbackFactory.class)
 public interface TestFeign {
-    @RequestMapping(method = RequestMethod.POST ,value="/user-service/rws/getEnv",consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @RequestMapping(method = RequestMethod.POST ,value="/user-service/rws/getEnv",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public String getEnv(String json);
 }

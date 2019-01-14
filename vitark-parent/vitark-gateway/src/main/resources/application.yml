@@ -32,6 +32,8 @@ zuul:
   host:
     connect-timeout-millis: 10000
     socket-timeout-millis: 60000
+    #max-per-route-connections: 30
+    #max-total-connections: 100
   routes:
     rws-service:
       path: /**
@@ -49,6 +51,9 @@ zuul:
       sensitiveHeaders:
       serviceId: oauth-service
   ignored-patterns: ${management.context-path}/**
+  ribbon-isolation-strategy: thread
+  #thread-pool:
+  #  use-separate-thread-pools: true
 security:
   basic:
     enabled: false

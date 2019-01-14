@@ -23,7 +23,7 @@ import java.io.InputStream;
  */
 @Component
 public class ProducerFallback implements ZuulFallbackProvider {
-
+    private String ERROR = "{\"status\":\"501\",\"message\":\"被路由服务异常\"}";
     /***
      * @return
      */
@@ -62,7 +62,7 @@ public class ProducerFallback implements ZuulFallbackProvider {
 
             @Override
             public InputStream getBody() throws IOException {
-                return new ByteArrayInputStream("fallbackggg011".getBytes());
+                return new ByteArrayInputStream(ERROR.getBytes());
             }
 
             @Override

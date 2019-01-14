@@ -34,11 +34,15 @@ myconfig: ${profile.active}
 logging:
   level.com.netflix.discovery.DiscoveryClient: warn
   config: classpath:logback.xml
+  level: debug
 feign:
+  httpclient:
+    enabled: true
   compression:
     request:
       min-request-size: 2048
       #mime-types: text/xml,application/xml,application/json
+
 info:
   application:
     name: rws服务
@@ -55,11 +59,21 @@ spring:
     ## 应用名称
     name: @project.build.finalName@
 hystrix:
+  #shareSecurityContext: true
   config:
     stream:
       maxConcurrentConnections: 50
   command:
-    default:
-      execution:
-        isolation:
-          strategy: SEMAPHORE
+      default:
+        execution:
+          timeout:
+            enabled: true
+          isolation:
+            strategy: THREAD
+            thread:
+              timeoutInMilliseconds: 6000000
+ # command:
+ #   default:
+ #     execution:
+ #       isolation:
+ #         strategy: THREAD #SEMAPHORE #

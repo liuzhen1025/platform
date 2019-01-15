@@ -1,13 +1,9 @@
 package com.gennlife;
 
 import com.gennlife.rws.fallbak.DeptClientServiceFallbackFactory;
-import com.gennlife.rws.fallbak.FooConfiguration;
-import com.netflix.hystrix.Hystrix;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,6 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "user-service"/*,fallback = CustermerCommand.class*//**//*,configuration = FooConfiguration.class 禁用Feign 封装Hystrix*/,fallbackFactory = DeptClientServiceFallbackFactory.class)
 public interface TestFeign {
     @HystrixCommand(threadPoolKey = "userService"/*,commandProperties = @HystrixProperty(name="execution.isolation.strategy",value = "SEMAPHORE")*/)
-    @RequestMapping(method = RequestMethod.POST ,value="/user-service/rws/getEnv",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @RequestMapping(method = RequestMethod.POST ,value= "/user-service/rws/getEnv",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public String getEnv(String json);
 }

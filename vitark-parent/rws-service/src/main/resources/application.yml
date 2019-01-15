@@ -36,8 +36,6 @@ logging:
   config: classpath:logback.xml
   level: debug
 feign:
-  httpclient:
-    enabled: true
   compression:
     request:
       min-request-size: 2048

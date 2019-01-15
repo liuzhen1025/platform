@@ -1,7 +1,5 @@
 package com.gennlife;
 
-import com.gennlife.rws.config.FeignHystrixConcurrencyStrategy;
-import com.netflix.hystrix.strategy.HystrixPlugins;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.boot.SpringApplication;
@@ -17,9 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
-import org.springframework.web.context.request.RequestContextHolder;
-
-import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 @EnableEurekaClient

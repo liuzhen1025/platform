@@ -40,7 +40,15 @@ feign:
     request:
       min-request-size: 2048
       #mime-types: text/xml,application/xml,application/json
-
+spring:
+    datasource:
+        driver-class-name:  com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.1.98:3306/tcc_order?useUnicode=true&characterEncoding=utf8
+        username: root
+        password: 123456
+mybatis:
+  type-aliases-package: com.gennlife.rws.entity
+  config-location: classpath:mybatis/mybatis-config.xml
 info:
   application:
     name: rws服务

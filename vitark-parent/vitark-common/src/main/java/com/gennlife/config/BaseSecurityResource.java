@@ -3,9 +3,9 @@
  */
 package com.gennlife.config;
 
-import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
 
 /**
  * @author liuzhen
@@ -20,7 +20,7 @@ public class BaseSecurityResource extends ResourceServerConfigurerAdapter {
         http.
                 csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(new Http401AuthenticationEntryPoint("Bearer realm=\"webrealm\""))
+                .authenticationEntryPoint(new OAuth2AuthenticationEntryPoint())
                 .and()
                 .authorizeRequests()
                 .mvcMatchers("/").permitAll()

@@ -3,7 +3,8 @@ server:
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
-  context-path: /${spring.application.name}
+  servlet:
+    context-path: /${spring.application.name}
 eureka:
   instance:
     ##续约更新时间间隔设置5秒，m默认30s
@@ -37,8 +38,8 @@ zuul:
   routes:
     rws-service:
       path: /**
-      strip-prefix: true
-      sensitiveHeaders:
+      #strip-prefix: true
+      #sensitiveHeaders:
       serviceId: rws-service
     user-service:
       path: /**
@@ -46,17 +47,15 @@ zuul:
       sensitiveHeaders:
       serviceId: user-service
     oauth:
-      path: /oauth/**
-      strip-prefix: true
-      sensitiveHeaders:
+      path: /**
+      #strip-prefix: true
+      #sensitiveHeaders:
       serviceId: oauth-service
   ignored-patterns: ${management.context-path}/**
-  ribbon-isolation-strategy: thread
+  #ribbon-isolation-strategy: thread
   #thread-pool:
   #  use-separate-thread-pools: true
 security:
-  basic:
-    enabled: false
   oauth2:
     client:
       ##网关的地址
@@ -89,8 +88,8 @@ hystrix:
 
 ###超时配置###
 logging:
-  level:
-    root: info
+  level.com.netflix.discovery.DiscoveryClient: debug
+
 spring:
   zipkin:
     base-url: http://localhost:8090

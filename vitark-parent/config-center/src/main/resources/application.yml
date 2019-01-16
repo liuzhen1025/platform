@@ -4,7 +4,8 @@ spring:
     name: @project.build.finalName@
 server:
   port: 9005
-  context-path: /${spring.application.name}
+  servlet:
+    context-path: /${spring.application.name}
 eureka:
   instance:
     ##续约更新时间间隔设置5秒，m默认30s
@@ -17,7 +18,7 @@ eureka:
     healthCheckUrlPath: /${spring.application.name}${management.context-path}${endpoints.health.path:/health}
     home-page-url-path: /${spring.application.name}${management.context-path}
     metadata-map:
-      configPath: ${server.context-path}
+      configPath: ${server.servlet.context-path}
       management:
         context-path: /${spring.application.name}${management.context-path}
 management:

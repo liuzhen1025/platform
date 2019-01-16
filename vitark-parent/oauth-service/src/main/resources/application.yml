@@ -1,6 +1,7 @@
 server:
   port: 9011
-  context-path: /${spring.application.name}
+  servlet:
+    context-path: /${spring.application.name}
 eureka:
   instance:
     ##续约更新时间间隔设置5秒，m默认30s
@@ -11,21 +12,19 @@ eureka:
     preferIpAddress: true
     ## 注册中心的实力名称
     instance-id: ${spring.cloud.client.ipAddress}:${server.port}/${spring.application.name}
-    status-page-url-path: /${spring.application.name}${management.context-path}${endpoints.info.path:/info}
-    healthCheckUrlPath: /${spring.application.name}${management.context-path}${endpoints.health.path:/health}
-    home-page-url-path: /${spring.application.name}${management.context-path}
+    status-page-url-path: /${spring.application.name}${management.server.servlet.context-path}${endpoints.info.path:/info}
+    healthCheckUrlPath: /${spring.application.name}${management.server.servlet.context-path}${endpoints.health.path:/health}
+    home-page-url-path: /${spring.application.name}${management.server.servlet.context-path}
     metadata-map:
       management:
-        context-path: /${spring.application.name}${management.context-path}
+        context-path: /${spring.application.name}${management.server.servlet.context-path}
 spring:
   jpa:
     show-sql: true
   datasource:
-    url: jdbc:mysql://localhost:3306/zuul-auth?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/zuul-auth?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
     password: 123456
-    druid:
-      driver-class-name: com.mysql.jdbc.Driver
   devtools:
     livereload:
       port: 35730
@@ -33,24 +32,34 @@ spring:
     base-url: http://localhost:8090
   application:
     name: @project.build.finalName@
+  security:
+    filter:
+      order: 3
 endpoints:
   health:
     sensitive: false
     enabled: true
 management:
-  security:
-    enabled: false
-  context-path: /${spring.application.name}-m
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allow-credentials: true
+  endpoint:
+    health:
+      show-details: always
+  server:
+    servlet:
+      context-path: /${spring.application.name}-m
 security:
   oauth2:
     resource:
       filter-order: 3
 logging:
-  config: classpath:logback.xml
+  #config: classpath:logback.xml.bak
   level:
-    org:
-      springframework:
-        web: info
+    root: debug
 info:
   application:
     name: 权限管理中心

@@ -3,6 +3,7 @@
  */
 package com.gennlife;
 
+import com.hmily.tcc.common.utils.IdWorkerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
@@ -30,6 +31,8 @@ public class TestController {
     @RequestMapping(value="/getEnv",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getEnv(Principal principal, @RequestBody String json){
 
+        IdWorkerUtils utils = IdWorkerUtils.getInstance();
+        utils.buildPartNumber();
         String env = "";
         try {
              env = testFeign.getEnv(json);

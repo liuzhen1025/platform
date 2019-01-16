@@ -3,7 +3,7 @@
  */
 package com.gennlife.fallback;
 
-import org.springframework.cloud.netflix.zuul.filters.route.ZuulFallbackProvider;
+import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +22,7 @@ import java.io.InputStream;
  * Time: 10:16
  */
 @Component
-public class ProducerFallback implements ZuulFallbackProvider {
+public class ProducerFallback implements FallbackProvider {
     private String ERROR = "{\"status\":\"501\",\"message\":\"被路由服务异常\"}";
     /***
      * @return
@@ -32,12 +32,8 @@ public class ProducerFallback implements ZuulFallbackProvider {
         return "*";
     }
 
-    /***
-     * 熔断返回信息
-     * @return
-     */
     @Override
-    public ClientHttpResponse fallbackResponse() {
+    public ClientHttpResponse fallbackResponse(String s, Throwable throwable) {
 
         return new ClientHttpResponse() {
             @Override
@@ -73,4 +69,5 @@ public class ProducerFallback implements ZuulFallbackProvider {
             }
         };
     }
+
 }

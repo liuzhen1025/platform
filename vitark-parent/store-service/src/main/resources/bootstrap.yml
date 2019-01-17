@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    config:
+      ## git 分支
+      label: master
+      ## 使用配置中心
+      enabled: true
+      ## 配置发现配置
+      discovery:
+        ## 配置中心应用名称
+        service-id: @config-server-serviceid@
+        ## 是否启用发现
+        enabled: true
+      fail-fast: true
+      retry:
+        initial-interval: 2000
+  ## 属性文件，读取的配置文件的格式为${application.name}-{lable}
+  profiles:
+    active: @spring.profile.active@
+eureka:
+  client:
+    ## 注册中心地址
+    serviceUrl:
+      defaultZone: @eureka-urls@

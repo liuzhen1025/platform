@@ -1,0 +1,34 @@
+#feign:
+#  hystrix:
+#    enabled: true
+server:
+  port: 9021
+management:
+  security:
+    enabled: false
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://${vitark.gateway.ip}:${vitark.gateway.port}/oauth/user
+      prefer-token-info: false
+      service-id: rws-service
+myconfig: ${profile.active}
+logging:
+  level: debug
+spring:
+  zipkin:
+    base-url: http://localhost:8090
+    compression:
+      enabled: true
+    flush-interval: 10
+  sleuth:
+    sampler:
+      percentage: 0.1
+    feign:
+      enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE

@@ -1,5 +1,7 @@
 package com.gennlife.rws.config;
 
+import com.hmily.tcc.common.bean.context.TccTransactionContext;
+import com.hmily.tcc.core.concurrent.threadlocal.TransactionContextLocal;
 import com.netflix.hystrix.strategy.concurrency.HystrixConcurrencyStrategy;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +17,7 @@ public class FeignHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy 
 
     @Override
     public <T> Callable<T> wrapCallable(Callable<T> callable) {
-        return new RequestAttributeAwareCallable<>(callable, RequestContextHolder.getRequestAttributes(), SecurityContextHolder.getContext());
+        return new RequestAttributeAwareCallable<>(callable, RequestContextHolder.getRequestAttributes(), SecurityContextHolder.getContext(), TransactionContextLocal.getInstance().get());
     }
 
     static class RequestAttributeAwareCallable<T> implements Callable<T> {
@@ -23,16 +25,19 @@ public class FeignHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy 
         private final Callable<T> delegate;
         private final RequestAttributes requestAttributes;
         private final SecurityContext context;
+        private final TccTransactionContext transactionContext;
 
-        public RequestAttributeAwareCallable(Callable<T> callable, RequestAttributes requestAttributes, SecurityContext context) {
+        public RequestAttributeAwareCallable(Callable<T> callable, RequestAttributes requestAttributes, SecurityContext context,TccTransactionContext transactionContext) {
             this.delegate = callable;
             this.requestAttributes = requestAttributes;
             this.context = context;
+            this.transactionContext = transactionContext;
         }
 
         @Override
         public T call() throws Exception {
             try {
+                TransactionContextLocal.getInstance().set(transactionContext);
                 SecurityContextHolder.setContext(context);
                 RequestContextHolder.setRequestAttributes(requestAttributes);
                 return delegate.call();

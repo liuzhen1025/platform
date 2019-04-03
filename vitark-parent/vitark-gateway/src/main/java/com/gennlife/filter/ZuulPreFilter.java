@@ -45,6 +45,7 @@ public class ZuulPreFilter extends ZuulFilter {
     public Object run() {
         RequestContext currentContext = RequestContext.getCurrentContext();
         HttpServletRequest request = currentContext.getRequest();
+        request.setAttribute("LOG_TRACE_ID","trace_id_aa112312312");
         return null;
     }
 }

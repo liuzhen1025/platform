@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019.  生命奇点（北京）科技有限公司 . 版权所有
+ */
+
 package com.gennlife.entity;
 
 

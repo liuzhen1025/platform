@@ -15,38 +15,31 @@
  * limitations under the License.
  */
 
-package com.gennlife.rws.mapper;
+package com.gennlife.rws.dto;
 
-import com.gennlife.rws.entity.Order;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import lombok.Data;
 
-import java.util.List;
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
- * OrderMapper.
- *
+ * AccountDTO.
  * @author xiaoyu
  */
-public interface OrderMapper {
+@Data
+public class AccountDTO implements Serializable {
+
+    private static final long serialVersionUID = 7223470850578998427L;
 
     /**
-     * 保存订单.
-     *
-     * @param order 订单对象
-     * @return rows
+     * 用户id.
      */
-    @Insert(" insert into `order` (create_time,number,status,product_id,total_amount,count,user_id) "
-            + " values ( #{createTime},#{number},#{status},#{productId},#{totalAmount},#{count},#{userId})")
-    int save(Order order);
+    private String userId;
 
     /**
-     * 更新订单.
-     *
-     * @param order 订单对象
-     * @return rows
+     * 扣款金额.
      */
-    @Update("update `order` set status = #{status} , total_amount=#{totalAmount} where number=#{number}")
-    int update(Order order);
+    private BigDecimal amount;
+
+
 }

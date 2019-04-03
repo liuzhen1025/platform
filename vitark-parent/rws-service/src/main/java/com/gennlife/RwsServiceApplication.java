@@ -3,6 +3,7 @@ package com.gennlife;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.MDC;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -18,6 +19,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.support.RequestContext;
+
+import javax.servlet.http.HttpServletRequest;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -38,6 +44,9 @@ public class RwsServiceApplication {
 			@Override
 			public void apply(RequestTemplate requestTemplate) {
 
+                HttpServletRequest request =
+                    ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+                Object log_trace_id = request.getAttribute("LOG_TRACE_ID");
                 SecurityContext context = SecurityContextHolder.getContext();
                 Authentication authentication = context.getAuthentication();
                 OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails)

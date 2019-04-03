@@ -2,8 +2,17 @@ server:
   port: 9022
   compression:
     enabled: true
-   # mime-types: application/json,application/xml,text/html,text/xml,text/plain
-  context-path: /@project.build.finalName@
+    # mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    context-path: /@project.build.finalName@
+spring:
+  zipkin:
+    base-url: http://localhost:8090
+    locator:
+      discovery:
+        enabled: true
+  application:
+    ## 应用名称
+    name: @project.build.finalName@
 eureka:
   instance:
     ##续约更新时间间隔设置5秒，m默认30s
@@ -20,10 +29,6 @@ eureka:
     metadata-map:
       management:
          context-path: /${spring.application.name}${management.context-path}
-management:
-  security:
-    enabled: false
-  context-path: ${server.context-path}-m
 security:
   oauth2:
     resource:
@@ -35,51 +40,3 @@ logging:
   level.com.netflix.discovery.DiscoveryClient: warn
   config: classpath:logback.xml
   level: debug
-feign:
-  compression:
-    request:
-      min-request-size: 2048
-      #mime-types: text/xml,application/xml,application/json
-spring:
-    datasource:
-        driver-class-name:  com.mysql.jdbc.Driver
-        url: jdbc:mysql://192.168.1.98:3306/tcc_order?useUnicode=true&characterEncoding=utf8
-        username: root
-        password: 123456
-mybatis:
-  type-aliases-package: com.gennlife.rws.entity
-  config-location: classpath:mybatis/mybatis-config.xml
-info:
-  application:
-    name: rws服务
-    desc: 提供真实世界研究功能
-    version: @project.version@
-    buildTime: @build.time@
-spring:
-  zipkin:
-    base-url: http://localhost:8090
-    locator:
-      discovery:
-        enabled: true
-  application:
-    ## 应用名称
-    name: @project.build.finalName@
-hystrix:
-  #shareSecurityContext: true
-  config:
-    stream:
-      maxConcurrentConnections: 50
-  command:
-      default:
-        execution:
-          timeout:
-            enabled: true
-          isolation:
-            strategy: THREAD
-            thread:
-              timeoutInMilliseconds: 6000000
- # command:
- #   default:
- #     execution:
- #       isolation:
- #         strategy: THREAD #SEMAPHORE #

@@ -14,11 +14,11 @@ import javax.annotation.PostConstruct;
  * Date: 2019/1/9
  * Time: 16:42
  */
-@Component
+//@Component
 public class PropertiesCheck {
-    @Value("${myconfig}")
+   //@Value("${myconfig}")
     private String env;
-    @PostConstruct
+    //@PostConstruct
     public void checkProperties(){
         if(env!=null){
             System.out.println("============================");

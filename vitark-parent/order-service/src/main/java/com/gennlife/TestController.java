@@ -25,8 +25,8 @@ import java.security.Principal;
 public class TestController {
     @Autowired
     private TestFeign testFeign;
-    @Value("${myconfig}")
-    private String env;
+   /* @Value("${myconfig}")
+    private String env;*/
     @RequestMapping(value="/getEnv",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getEnv(Principal principal, @RequestBody String json){
 

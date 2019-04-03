@@ -1,5 +1,5 @@
 server:
-  port: 9022
+  port: 9050
   compression:
     enabled: true
    # mime-types: application/json,application/xml,text/html,text/xml,text/plain
@@ -57,7 +57,7 @@ spring:
     name: @project.build.finalName@
   datasource:
      driver-class-name:  com.mysql.jdbc.Driver
-     url: jdbc:mysql://192.168.1.98:3306/tcc_order?useUnicode=true&characterEncoding=utf8
+     url: jdbc:mysql://localhost:3306/tcc_order?useUnicode=true&characterEncoding=utf8
      username: root
      password: 123456
 hystrix:

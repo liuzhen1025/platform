@@ -5,7 +5,7 @@
 
 	<groupId>com.gennlife</groupId>
 	<artifactId>vitark-common</artifactId>
-	<version>releases1.0.0</version>
+	<version>releases1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>vitark-common</name>
@@ -53,7 +53,7 @@
 
 	<build>
         <finalName>${project.artifactId}</finalName>
-        <resources>
+        <!--<resources>
             <resource>
                 <directory>src/main/java</directory>
                 <filtering>true</filtering>
@@ -62,15 +62,15 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
-        </resources>
-		<plugins>
+        </resources>-->
+		<!--<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-		</plugins>
+		</plugins>-->
 	</build>
-	<dependencyManagement>
+	<!--<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -80,5 +80,5 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>
+	</dependencyManagement>-->
 </project>

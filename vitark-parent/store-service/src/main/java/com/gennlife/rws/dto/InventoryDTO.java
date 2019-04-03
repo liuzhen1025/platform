@@ -15,38 +15,31 @@
  * limitations under the License.
  */
 
-package com.gennlife.rws.mapper;
+package com.gennlife.rws.dto;
 
-import com.gennlife.rws.entity.Order;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import lombok.Data;
 
-import java.util.List;
+import java.io.Serializable;
 
 /**
- * OrderMapper.
+ * InventoryDTO.
  *
  * @author xiaoyu
  */
-public interface OrderMapper {
+@Data
+public class InventoryDTO implements Serializable {
+
+    private static final long serialVersionUID = 8229355519336565493L;
 
     /**
-     * 保存订单.
-     *
-     * @param order 订单对象
-     * @return rows
+     * 商品id.
      */
-    @Insert(" insert into `order` (create_time,number,status,product_id,total_amount,count,user_id) "
-            + " values ( #{createTime},#{number},#{status},#{productId},#{totalAmount},#{count},#{userId})")
-    int save(Order order);
+    private String productId;
+
 
     /**
-     * 更新订单.
-     *
-     * @param order 订单对象
-     * @return rows
+     * 数量.
      */
-    @Update("update `order` set status = #{status} , total_amount=#{totalAmount} where number=#{number}")
-    int update(Order order);
+    private Integer count;
+
 }
